@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <title> {{ title }}</title>
+	<link href="{{ url_for('static', filename="css/style.css") }}" rel="stylesheet">
+</head>
+<body>
+	<h2>Login</h2>
+
+<div class = "logincont">
+<form action="/register" method="post">
+
+  <div class="container">
+    <label for="loginemail"><b>Email</b></label>
+	<input type="text" placeholder="Enter Email" name="loginemail" required>
+	
+	<label for="username"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="username" required>
+
+    <label for="password"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" required>
+	{% if error %}
+	<div class = "error_box">
+		<p><strong>Error:</strong> {{ error }}
+	</div>
+  	{% endif %}
+	<button type="submit">Register</button>
+
+  </div>
+s
+</form>
+
+</div>
+</body>
+</html>

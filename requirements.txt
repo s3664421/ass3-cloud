@@ -1,0 +1,4 @@
+Flask
+console-menu
+requests
+boto3

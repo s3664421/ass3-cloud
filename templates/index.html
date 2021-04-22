@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <title> {{ title }}</title>
+	<link href="{{ url_for('static', filename="css/style.css") }}" rel="stylesheet">
+</head>
+<body>
+	<h2>Login</h2>
+
+<div class = "logincont">
+<form action="/" method="post">
+
+  <div class="container">
+    <label for="username"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="loginemail" required>
+
+    <label for="password"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" required>
+	{% if error %}
+	<div class = "error_box">
+		<p><strong>Error:</strong> {{ error }}
+	</div>
+  	{% endif %}
+	<button type="submit">Login</button>
+	<button class = "buttonreg" onclick="location.href = '/register';" >Register</button>
+  </div>
+
+</form>
+
+</div>
+</body>
+</html>

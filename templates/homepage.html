@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <title> {{ title }}</title>
+	<link href="{{ url_for('static', filename="css/style.css") }}" rel="stylesheet">
+
+</head>
+<body>
+	<h2>Homepage</h2>
+<div>
+	<ul>
+		<li><a href="#home">Home</a></li>
+		<li><a href="#news">News</a></li>
+		<li><a href="#contact">Contact</a></li>
+		<li style="float:right"><a class="active" href="#about">About</a></li>
+	  </ul>
+
+</div>
+	<div>
+<div class="split left">
+	<div class="centered">
+
+		<div>
+			<div class = "logincont">
+				<form action="/homepage" method="post">
+				
+				  <div class="container">
+					<label for="title"><b>Title</b></label>
+					<input type="text" placeholder="Song Title" name="title">
+					<label for="artist"><b>Artist</b></label>
+					<input type="text" placeholder="Artist" name="artist">
+					<label for="year"><b>Artist</b></label>
+					<input type="text" placeholder="Year" name="year">
+					<input type="hidden" name="action" value="songsearch">
+				
+					<button type="submit">Search</button>
+			
+				  </div>
+				
+				</form>
+		</div>
+	</br>
+	</br>
+	<table style="width:100%; color: white;">
+		<tr>
+		
+
+		{% if error %}
+		<h2 style = "color: brown;"> {{ error }}</h2>
+		{% endif %}
+		{% if search_results%}
+		<tr>
+		<th></th>
+		<th>Artist</th>
+		<th>Song</th>
+		<th>Year</th>
+		</tr>
+
+		{% for result in search_results %}
+	
+			<tr>
+			<td> <image src = "{{ result['bucket_image_name'] }}"> </image></td>
+			<td>{{ result['artist'] }}</td>
+			<td>{{ result['title'] }}</td>
+			<td>{{ result['year'] }}</td>
+			<td>
+				<form action ="/homepage" method = "post">
+					<input type="hidden" name="action" value="subscribe">
+					<input type = "hidden" name="artist" value = "{{ result['artist'] }}">
+					<input type = "hidden" name="title" value = "{{ result['title'] }}">
+					<button type="submit">Subscribe</button>
+
+				</form>
+
+			</td>
+			</tr>
+			
+
+	  {% endfor %}
+	  {% endif %}
+</table>
+</div>
+</div>
+
+<div class="split right">
+	
+	<div class="topnav">
+		<a href="#">Welcome {{ user_data['user_name'] }}</a>
+		<a href="#"> {{user_data['email']}}</a>
+		<a href="/logout" style="float:right">Logout</a>
+	  </div>
+
+	<div class="centered">
+	<h1 style="color: white;" > Welcome</h1>
+	<h3 style="color: white;" > My Subscriptions</h1>
+	<div>
+		<table style="width:100%; color: white;">
+			<tr>
+			<th></th>
+			<th>Artist</th>
+			<th>Song</th>
+			<th>Year</th>
+			</tr>
+			{% if user_subscriptions%}
+			{% for result in user_subscriptions %}
+		
+				<tr>
+				<td> <image src = "{{ result['bucket_image_name'] }}"> </image></td>
+				<td>{{ result['artist'] }}</td>
+				<td>{{ result['title'] }}</td>
+				<td>{{ result['year'] }}</td>
+				<td>
+					<form action ="/homepage" method = "post">
+						<input type="hidden" name="action" value="unsubscribe">
+						<input type = "hidden" name="artist" value = "{{ result['artist'] }}">
+						<input type = "hidden" name="title" value = "{{ result['title'] }}">
+						<button type="submit">Unsubscribe</button>
+	
+					</form>
+	
+				</td>
+				</tr>
+				
+	
+		  {% endfor %}
+		  {% endif %}
+	</table>
+	</div>
+	</div>
+</div>
+</div>
+</body>
+</html>
